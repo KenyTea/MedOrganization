@@ -25,15 +25,21 @@ namespace MedOrganization.Module
         public string Imya { get; set; }
         public string Otchestvo { get; set; }
         public int IIN { get; set; }
-        public MedOrganization MedOrganization { get; set; }
+        public MedOrganization MedOrganization
+        {
+            get { return MedOrganizationId ==null? null: MedOrgService.Instance[MedOrganizationId.Value]; }
+            set { MedOrganizationId = value?.Id; }
+        }
+        public int? MedOrganizationId { get; internal set; }
 
         public void PacientInfo()
         {
             Console.WriteLine(
-                              $"Familiya = {Familiya}\n" +
-                              $"Imya = {Imya}\n" +
-                              $"Otchestvo = {Otchestvo}\n" +
-                              $"IIN = {IIN}\n");
+$@"Familiya = {Familiya}
+Imya = {Imya}
+Otchestvo = {Otchestvo}
+IIN = {IIN}
+Org = {MedOrganization?.NameOrgan}");
         }
     }
 }

@@ -21,10 +21,12 @@ namespace MedOrganization.Module.Services
 
     public class PacientServise
     {
+        public static PacientServise Instance { get; internal set; }
         private static readonly string fileName = "Pacient.xml";
         public List<Pacient> PacientList = new List<Pacient>();
         public PacientServise()
         {
+            Instance = this;
             Load();
         }
 
@@ -44,7 +46,7 @@ namespace MedOrganization.Module.Services
                         writer.WriteElementString(nameof(Pacient.Imya), pacient.Imya);
                         writer.WriteElementString(nameof(Pacient.Otchestvo), pacient.Otchestvo);
                         if (pacient.MedOrganization != null)
-                            writer.WriteElementString(nameof(Pacient.MedOrganization), pacient.MedOrganization.Id.ToString());
+                            writer.WriteElementString(nameof(Pacient.MedOrganizationId), pacient.MedOrganization.Id.ToString());
                         writer.WriteEndElement();
                     }
                     writer.WriteEndElement();
@@ -61,36 +63,42 @@ namespace MedOrganization.Module.Services
             }
             else
             {
-                using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read)) // поток
                 {
-                    using (var reader = XmlReader.Create(file))
+                    using (var reader = XmlReader.Create(file)) // открываем ридер
                     {
-                        if (reader.ReadToFollowing(nameof(PacientList)))
+                        if (reader.ReadToFollowing(nameof(PacientList))) // читаем до  листа пациентов
                         {
-                            while (reader.ReadToFollowing(nameof(Pacient)))
+                            while (reader.ReadToFollowing(nameof(Pacient))) // читай пока пациент
                             {
                                 var pacient = new Pacient();
-                                if(reader.ReadToFollowing(nameof(Pacient.IIN)))
+                                while (reader.Read()) // читаем пока не закончились элементы
                                 {
-                                    pacient.IIN = reader.ReadElementContentAsInt();
+                                    if (reader.NodeType == XmlNodeType.EndElement)
+                                        break;
+                                    if (reader.NodeType == XmlNodeType.Whitespace)
+                                        continue;
+                                    var name = reader.Name; // считали имя
+                                    reader.Read(); // говорим читай
+                                    switch (name)
+                                    {
+                                        case nameof(Pacient.IIN): 
+                                            pacient.IIN = reader.ReadContentAsInt();
+                                            break;
+                                        case nameof(Pacient.Familiya):
+                                            pacient.Familiya = reader.ReadContentAsString();
+                                            break;
+                                        case nameof(Pacient.Imya):
+                                            pacient.Imya = reader.ReadContentAsString();
+                                            break;
+                                        case nameof(Pacient.Otchestvo):
+                                            pacient.Otchestvo = reader.ReadContentAsString();
+                                            break;
+                                        case nameof(Pacient.MedOrganizationId):
+                                            pacient.MedOrganizationId = reader.ReadContentAsInt();
+                                            break;
+                                    }
                                 }
-                                if (reader.ReadToFollowing(nameof(Pacient.Familiya)))
-                                {
-                                    pacient.Familiya = reader.ReadElementContentAsString();
-                                }
-                                if (reader.ReadToFollowing(nameof(Pacient.Imya)))
-                                {
-                                    pacient.Imya = reader.ReadElementContentAsString();
-                                }
-                                if (reader.ReadToFollowing(nameof(Pacient.Otchestvo)))
-                                {
-                                    pacient.Otchestvo = reader.ReadElementContentAsString();
-                                }
-                                //if (reader.ReadToFollowing(nameof(Pacient.MedOrganization)))
-                                //{
-                                //    TODO pacient.MedOrganization = meds.GetById reader.ReadElementContentAsInt();
-                                //}
-
                                 PacientList.Add(pacient);
                             }
                         }
@@ -114,6 +122,8 @@ namespace MedOrganization.Module.Services
         }
 
         private Random rnd = new Random();
+
+        
         private void PacientGenerator(int size = 0)
         {
             if (size == 0)

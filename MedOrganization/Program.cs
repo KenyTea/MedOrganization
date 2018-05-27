@@ -24,6 +24,7 @@ namespace MedOrganization
             string message = "";
             sz.Zakreplenie(ref ms, ref ps, out message);
 
+            ms.Save();
             ps.Save();
         }
     }

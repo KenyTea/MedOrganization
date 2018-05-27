@@ -8,8 +8,6 @@ namespace MedOrganization.Module
 {
     public class MedOrganization
     {
-        public List<Pacient> pacientList;
-
         public MedOrganization():this("","","")
         {
 
@@ -17,24 +15,29 @@ namespace MedOrganization.Module
         public MedOrganization(string nameOrgan, string adres, string telNumber)
         {
             NameOrgan = nameOrgan;
-            Adres = adres;
+            Adress = adres;
             TelNumber = telNumber;
-
-            pacientList = new List<Pacient>();
+            PacientList = new List<Pacient>();
         }
 
         //2.	Мед Организация(Наименование, Адрес, Телефон)
         public int Id { get; set; }
         public string NameOrgan { get; set; }
-        public string Adres { get; set; }
+        public string Adress { get; set; }
         public string TelNumber { get; set; }
+        public List<Pacient> PacientList { get; set; }
+
 
         public void MedOrganizationInfo()
         {
             Console.WriteLine($"Nazvanie organizacii ={NameOrgan} \n"+
-                              $"Adres organizacii ={Adres} \n"+
+                              $"Adres organizacii ={Adress} \n"+
                               $"TelNumber organizacii ={TelNumber} \n"+
                               $"ID organizacii ={Id} \n");
+            foreach (var pacient in PacientList)
+            {
+                Console.WriteLine($"    Pacient ={pacient.Familiya} {pacient.Imya} {pacient.IIN}");
+            }
         }
 
         //PacientServise p = new PacientServise();

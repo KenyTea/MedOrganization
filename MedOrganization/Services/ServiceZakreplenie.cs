@@ -31,7 +31,7 @@ namespace MedOrganization.Module
             #endregion
 
             #region Select MedOrg
-            foreach (MedOrganization o in ms.lmed.Take(10))
+            foreach (MedOrganization o in ms.MedOrgList.Take(10))
                 o.MedOrganizationInfo();
 
             Console.WriteLine("--------------------------------------");
@@ -45,9 +45,9 @@ namespace MedOrganization.Module
 
             Console.Clear();
 
-            var so = ms.lmed.FirstOrDefault(f => f.Id == selectOrgId);
+            var so = ms.MedOrgList.FirstOrDefault(f => f.Id == selectOrgId);
             
-            foreach (var p in so.pacientList)
+            foreach (var p in so.PacientList)
             {
                 if (p.IIN == selectIin)
                 {
@@ -56,7 +56,7 @@ namespace MedOrganization.Module
                 }
             }
 
-            so.pacientList.Add(selectPation);
+            so.PacientList.Add(selectPation);
             ps.PacientList.FirstOrDefault(f=>f.IIN == selectIin)
                 .MedOrganization = selectOrg;
 
