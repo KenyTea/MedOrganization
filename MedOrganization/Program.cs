@@ -23,6 +23,8 @@ namespace MedOrganization
             ServiceZakreplenie sz = new ServiceZakreplenie();
             string message = "";
             sz.Zakreplenie(ref ms, ref ps, out message);
+
+            ps.Save();
         }
     }
 }

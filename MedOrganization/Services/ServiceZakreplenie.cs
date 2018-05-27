@@ -23,8 +23,13 @@ namespace MedOrganization.Module
             int selectIin = Int32.Parse(Console.ReadLine());
             selectPation = ps[selectIin];
             Console.WriteLine("--------------------------------------");
+            if (selectPation == null)
+            {
+                mesage = "Данный пациент не существует!";
+                return false;
+            }
             #endregion
-            
+
             #region Select MedOrg
             foreach (MedOrganization o in ms.lmed.Take(10))
                 o.MedOrganizationInfo();
