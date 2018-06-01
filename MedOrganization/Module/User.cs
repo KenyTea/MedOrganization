@@ -13,5 +13,12 @@ namespace MedOrganization.Module
         public string Login { get; set; }
         public string Pass { get; set; }
         public PravaDostupa PravaDostupa_ { get; set; }
+
+        public User()
+        {
+            Login = "Root";
+            Pass = "Admin";
+            PravaDostupa_  = PravaDostupa.Admin;
+        }
     }
 }

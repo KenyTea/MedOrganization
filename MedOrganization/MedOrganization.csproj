@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\MedOrgService.cs" />
+    <Compile Include="Services\Menu.cs" />
     <Compile Include="Services\PacientServise.cs" />
     <Compile Include="Module\MedOrganization.cs" />
     <Compile Include="Module\Pacient.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Module\ZapropsyNaZakreplenie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

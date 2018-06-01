@@ -27,7 +27,7 @@ namespace MedOrganization.Module
         public int IIN { get; set; }
         public MedOrganization MedOrganization
         {
-            get { return MedOrganizationId ==null? null: MedOrgService.Instance[MedOrganizationId.Value]; }
+            get { return MedOrganizationId == null ? null : MedOrgService.Instance[MedOrganizationId.Value]; }
             set { MedOrganizationId = value?.Id; }
         }
         public int? MedOrganizationId { get; internal set; }
@@ -35,11 +35,11 @@ namespace MedOrganization.Module
         public void PacientInfo()
         {
             Console.WriteLine(
-$@"Familiya = {Familiya}
-Imya = {Imya}
-Otchestvo = {Otchestvo}
-IIN = {IIN}
-Org = {MedOrganization?.NameOrgan}");
+                  $@"Familiya = {Familiya}
+                  Imya = {Imya}
+                  Otchestvo = {Otchestvo}
+                  IIN = {IIN}
+                  Org = {MedOrganization?.NameOrgan}");
         }
     }
 }
