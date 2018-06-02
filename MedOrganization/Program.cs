@@ -33,13 +33,14 @@ namespace MedOrganization
 
             UserService us = new UserService();
             Console.WriteLine("Registration");
+           // us.Generate();
             us.Registration();
             //Console.WriteLine("Print");
            // us.PrintList();
             //Console.WriteLine("WriteToFileWithLogAndPass");
             //us.WriteToFileWithLogAndPass();
-            Console.WriteLine("ReadFromFileWithLogAndPass");
-            us.ReadFromFileWithLogAndPass();
+            //Console.WriteLine("ReadFromFileWithLogAndPass");
+            //us.ReadFromFileWithLogAndPass();
         }
     }
 }

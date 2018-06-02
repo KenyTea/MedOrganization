@@ -13,21 +13,23 @@ namespace MedOrganization.Services
     {
         User user = new User();
         List<User> listUsers = new List<User>();
-
         List<User> tempList = new List<User>();
 
         string path = @"FileWithLogAndPass.txt";
 
+        public void Generate()
+        {
+            user.PravaDostupa_ = PravaDostupa.Admin;
+            user.Login = "Root";
+            user.Pass = "admin";
+            listUsers.Add(user);
+        }
+
         public void Registration()
         {
-            User u = new User();
-            List<User> adminlist = new List<User>();
-            u.PravaDostupa_ = PravaDostupa.Admin;
-            u.Login = "Root";
-            u.Pass = "admin";
-            adminlist.Add(u);
-            Save(adminlist);
 
+
+            Generate();
             Console.WriteLine("For registration Enter Your user name: ");
             string uName = Console.ReadLine();
             user.PravaDostupa_ = PravaDostupa.User;
@@ -55,7 +57,7 @@ namespace MedOrganization.Services
 
             foreach (var item in listUsers)
             {
-                Console.WriteLine("Status: {0} Login: {1} ({2}) ",item.PravaDostupa_, item.Login, item.Pass);
+                Console.WriteLine("Status: {0} Login: {1} ({2}) ", item.PravaDostupa_, item.Login, item.Pass);
             }
         }
 
@@ -65,9 +67,10 @@ namespace MedOrganization.Services
 
             foreach (var item in u)
             {
-                Console.WriteLine("Status: {0} Login: {1} ({2}) ",item.PravaDostupa_, item.Login, item.Pass);
+                Console.WriteLine("Status: {0} Login: {1} ({2}) ", item.PravaDostupa_, item.Login, item.Pass);
             }
         }
+
         #endregion
 
         public void LoginService()
@@ -110,12 +113,12 @@ namespace MedOrganization.Services
                 {
                     texts = sr.ReadLine();
                     var m = texts.Split(';');
-                    user.PravaDostupa_= (PravaDostupa)Enum.Parse(typeof(PravaDostupa),m[0]); 
+                    user.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), m[0]);
                     user.Login = m[1];
                     user.Pass = m[2];
                     tempList.Add(user);
                     Console.WriteLine("Read from file");
-                    PrintList(tempList);
+                    //PrintList(tempList);
                 }
                 return texts;
             }
@@ -131,16 +134,16 @@ namespace MedOrganization.Services
             document.InsertBefore(xmlDeclaration, root);
             var userList = document.CreateElement(nameof(listUsers));
 
-            foreach (var org in listUsers)
+            foreach (var us in listUsers)
             {
                 var nodeU = document.CreateElement(nameof(User));
                 var nodeState = document.CreateElement(nameof(User.PravaDostupa_));
                 var log = document.CreateElement(nameof(User.Login));
                 var pass = document.CreateElement(nameof(User.Pass));
 
-                nodeState.InnerText = (user.PravaDostupa_).ToString();
-                log.InnerText = user.Login;
-                pass.InnerText = user.Pass;
+                nodeState.InnerText = (us.PravaDostupa_).ToString();
+                log.InnerText = us.Login;
+                pass.InnerText = us.Pass;
 
                 userList.AppendChild(nodeU);
                 nodeU.AppendChild(nodeState);
