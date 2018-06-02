@@ -122,7 +122,7 @@ namespace MedOrganization.Services
             }
         }
 
-        public string ReadFromFileWithLogAndPass()
+        public void ReadFromFileWithLogAndPass()
         {
             User newUser = new User();
             List<User> tempList = new List<User>();
@@ -132,16 +132,21 @@ namespace MedOrganization.Services
             {
                 using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default))
                 {
-                    texts = sr.ReadLine();
+                    texts = sr.ReadToEnd();
                     var m = texts.Split(';');
                     newUser.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), m[0]);
                     newUser.Login = m[1];
                     newUser.Pass = m[2];
-                    tempList.Add(newUser);
                     Console.WriteLine("Read from file");
-                   
-                }
-                return texts;
+                }               
+            }
+                    tempList.Add(newUser);
+            // PrintList(tempList);
+            foreach (var item in tempList)
+            {
+                Console.WriteLine(item.PravaDostupa_);
+                Console.WriteLine(item.Login);
+                Console.WriteLine(item.Pass);
             }
         }
 
