@@ -11,29 +11,46 @@ namespace MedOrganization.Services
 {
     public class UserService
     {
-        User user = new User();
+        // User user = new User();
         List<User> listUsers = new List<User>();
-        List<User> tempList = new List<User>();
+        //List<User> tempList = new List<User>();
 
         string path = @"FileWithLogAndPass.txt";
 
         public void Generate()
         {
+            User user = new User();
             user.PravaDostupa_ = PravaDostupa.Admin;
             user.Login = "Root";
             user.Pass = "admin";
             listUsers.Add(user);
+            User u = new User();
+            u.PravaDostupa_ = PravaDostupa.User;
+            u.Login = "Alex";
+            u.Pass = "111";
+            listUsers.Add(u);
+            User us = new User();
+            us.PravaDostupa_ = PravaDostupa.User;
+            us.Login = "Sergey";
+            us.Pass = "222";
+            listUsers.Add(us);
+            User use = new User();
+            use.PravaDostupa_ = PravaDostupa.User;
+            use.Login = "Max";
+            use.Pass = "333";
+            listUsers.Add(use);
+            // PrintList();
         }
 
         public void Registration()
         {
-
-
             Generate();
+            User newUser = new User();
+
             Console.WriteLine("For registration Enter Your user name: ");
             string uName = Console.ReadLine();
-            user.PravaDostupa_ = PravaDostupa.User;
-            user.Login = uName;
+            newUser.PravaDostupa_ = PravaDostupa.User;
+            newUser.Login = uName;
             Console.Clear();
             Console.WriteLine("Enter Your password: ");
             string word1 = Console.ReadLine();
@@ -41,10 +58,11 @@ namespace MedOrganization.Services
             string word2 = Console.ReadLine();
             if (word1 == word2)
             {
-                user.Pass = word2;
-                listUsers.Add(user);
+                newUser.Pass = word2;
+                listUsers.Add(newUser);
                 WriteToFileWithLogAndPass();
                 Save();
+                PrintList(listUsers);
             }
             else Console.WriteLine("Error");
             return;
@@ -59,6 +77,7 @@ namespace MedOrganization.Services
             {
                 Console.WriteLine("Status: {0} Login: {1} ({2}) ", item.PravaDostupa_, item.Login, item.Pass);
             }
+
         }
 
         public void PrintList(List<User> u)
@@ -105,6 +124,8 @@ namespace MedOrganization.Services
 
         public string ReadFromFileWithLogAndPass()
         {
+            User newUser = new User();
+            List<User> tempList = new List<User>();
             FileInfo fi = new FileInfo(path);
             string texts;
             using (FileStream fs = fi.Open(FileMode.Open, FileAccess.Read))
@@ -113,12 +134,12 @@ namespace MedOrganization.Services
                 {
                     texts = sr.ReadLine();
                     var m = texts.Split(';');
-                    user.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), m[0]);
-                    user.Login = m[1];
-                    user.Pass = m[2];
-                    tempList.Add(user);
+                    newUser.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), m[0]);
+                    newUser.Login = m[1];
+                    newUser.Pass = m[2];
+                    tempList.Add(newUser);
                     Console.WriteLine("Read from file");
-                    //PrintList(tempList);
+                   
                 }
                 return texts;
             }
@@ -165,16 +186,16 @@ namespace MedOrganization.Services
             document.InsertBefore(xmlDeclaration, root);
             var userList = document.CreateElement(nameof(adm));
 
-            foreach (var org in listUsers)
+            foreach (var us in listUsers)
             {
                 var nodeU = document.CreateElement(nameof(User));
                 var nodeState = document.CreateElement(nameof(User.PravaDostupa_));
                 var log = document.CreateElement(nameof(User.Login));
                 var pass = document.CreateElement(nameof(User.Pass));
 
-                nodeState.InnerText = (user.PravaDostupa_).ToString();
-                log.InnerText = user.Login;
-                pass.InnerText = user.Pass;
+                nodeState.InnerText = (us.PravaDostupa_).ToString();
+                log.InnerText = us.Login;
+                pass.InnerText = us.Pass;
 
                 userList.AppendChild(nodeU);
                 nodeU.AppendChild(nodeState);

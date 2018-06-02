@@ -14,11 +14,9 @@ namespace MedOrganization.Module
         public string Pass { get; set; }
         public PravaDostupa PravaDostupa_ { get; set; }
 
-        public User()
+       public void PrintUser()
         {
-            Login = "Root";
-            Pass = "Admin";
-            PravaDostupa_  = PravaDostupa.Admin;
+            Console.WriteLine("PravaDostupa: {0}, Login: {1} ({2}) ", PravaDostupa_, Login, Pass);
         }
     }
 }
