@@ -26,6 +26,7 @@ namespace MedOrganization.Module.Services
         public List<Pacient> PacientList = new List<Pacient>();
         public PacientServise()
         {
+            PacientGenerator(10); // !!!!!!!!!!!!!!!!!!!!!!
             Instance = this;
             Load();
         }
@@ -42,9 +43,9 @@ namespace MedOrganization.Module.Services
                     {
                         writer.WriteStartElement(nameof(Pacient));
                         writer.WriteElementString(nameof(Pacient.IIN), pacient.IIN.ToString());
-                        writer.WriteElementString(nameof(Pacient.Familiya), pacient.Familiya);
-                        writer.WriteElementString(nameof(Pacient.Imya), pacient.Imya);
-                        writer.WriteElementString(nameof(Pacient.Otchestvo), pacient.Otchestvo);
+                        writer.WriteElementString(nameof(Pacient.Family), pacient.Family);
+                        writer.WriteElementString(nameof(Pacient.Name), pacient.Name);
+                        writer.WriteElementString(nameof(Pacient.MidleName), pacient.MidleName);
                         if (pacient.MedOrganization != null)
                             writer.WriteElementString(nameof(Pacient.MedOrganizationId), pacient.MedOrganization.Id.ToString());
                         writer.WriteEndElement();
@@ -85,14 +86,14 @@ namespace MedOrganization.Module.Services
                                         case nameof(Pacient.IIN): 
                                             pacient.IIN = reader.ReadContentAsInt();
                                             break;
-                                        case nameof(Pacient.Familiya):
-                                            pacient.Familiya = reader.ReadContentAsString();
+                                        case nameof(Pacient.Family):
+                                            pacient.Family = reader.ReadContentAsString();
                                             break;
-                                        case nameof(Pacient.Imya):
-                                            pacient.Imya = reader.ReadContentAsString();
+                                        case nameof(Pacient.Name):
+                                            pacient.Name = reader.ReadContentAsString();
                                             break;
-                                        case nameof(Pacient.Otchestvo):
-                                            pacient.Otchestvo = reader.ReadContentAsString();
+                                        case nameof(Pacient.MidleName):
+                                            pacient.MidleName = reader.ReadContentAsString();
                                             break;
                                         case nameof(Pacient.MedOrganizationId):
                                             pacient.MedOrganizationId = reader.ReadContentAsInt();
@@ -115,6 +116,19 @@ namespace MedOrganization.Module.Services
                 foreach (Pacient item in PacientList)
                 {
                     if (item.IIN == iin)
+                        return item;
+                }
+                return null;
+            }
+        }
+
+        public Pacient this[string name]
+        {
+            get
+            {
+                foreach (Pacient item in PacientList)
+                {
+                    if (item.Name == name)
                         return item;
                 }
                 return null;

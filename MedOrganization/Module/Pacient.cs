@@ -14,16 +14,16 @@ namespace MedOrganization.Module
         }
         public Pacient(string familiya, string imya, string otchestvo, int iIN)
         {
-            Familiya = familiya;
-            Imya = imya;
-            Otchestvo = otchestvo;
+            Family = familiya;
+            Name = imya;
+            MidleName = otchestvo;
             IIN = iIN;
         }
 
         //1.	Пациент(Фамилия, Имя, Отчество, ИИН)
-        public string Familiya { get; set; }
-        public string Imya { get; set; }
-        public string Otchestvo { get; set; }
+        public string Family { get; set; }
+        public string Name { get; set; }
+        public string MidleName { get; set; }
         public int IIN { get; set; }
         public MedOrganization MedOrganization
         {
@@ -34,12 +34,18 @@ namespace MedOrganization.Module
 
         public void PacientInfo()
         {
-            Console.WriteLine(
-                  $@"Familiya = {Familiya}
-                  Imya = {Imya}
-                  Otchestvo = {Otchestvo}
-                  IIN = {IIN}
-                  Org = {MedOrganization?.NameOrgan}");
+            //Console.WriteLine(
+            //      $@"Familiya = {Family}
+            //      Imya = {Imya}
+            //      Otchestvo = {Otchestvo}
+            //      IIN = {IIN}
+            //      Org = {MedOrganization?.NameOrgan}");
+            Console.WriteLine("Family: " + Family);
+            Console.WriteLine("Name: " + Name);
+            Console.WriteLine("Midle name: " + MidleName);
+            Console.WriteLine("IIN: " + IIN);
+            Console.WriteLine("Med Organization: " + MedOrganization?.NameOrgan);
+            Console.WriteLine("---------------------------");
         }
     }
 }

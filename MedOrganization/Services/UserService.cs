@@ -11,7 +11,6 @@ namespace MedOrganization.Services
 {
     public class UserService
     {
-        // User user = new User();
         List<User> listUsers = new List<User>();
         List<User> tempList = new List<User>();
 
@@ -39,21 +38,27 @@ namespace MedOrganization.Services
             use.Login = "Max";
             use.Pass = "333";
             listUsers.Add(use);
-            
+
             Save();
             Load();
         }
 
         public void Registration()
-        {
-            Generate();
+        {           
             User newUser = new User();
+            newUser.PravaDostupa_ = PravaDostupa.User;
 
             Console.WriteLine("For registration Enter Your user name: ");
             string uName = Console.ReadLine();
-            
-            newUser.PravaDostupa_ = PravaDostupa.User;
-            newUser.Login = uName;
+            foreach (var item in tempList)
+            {
+                if (item.Login == uName)
+                {
+                    Console.WriteLine("Such name already exists");
+                }
+                else newUser.Login = uName;
+            }
+
             Console.Clear();
             Console.WriteLine("Enter Your password: ");
             string word1 = Console.ReadLine();
@@ -71,7 +76,7 @@ namespace MedOrganization.Services
             return;
         }
 
-        #region test read list
+        #region print list
         public void PrintList()
         {
             Console.Clear();
@@ -97,9 +102,23 @@ namespace MedOrganization.Services
 
         public void LoginService()
         {
+            Console.WriteLine();
             Console.WriteLine("Please enter Your login: ");
             string log = Console.ReadLine();
-
+            foreach (var item in tempList)
+            {
+                if (item.Login == log)
+                {
+                    Console.WriteLine("Enter Your password ");
+                    string pass = Console.ReadLine();
+                    if (item.Pass == pass)
+                    {
+                        Console.WriteLine("Welcom " + log);
+                    }
+                    else Console.WriteLine("Password entered incorrectly");
+                }
+                else Console.WriteLine("You made a mistake in the name or you are not registered");
+            }
 
         }
 
@@ -159,7 +178,7 @@ namespace MedOrganization.Services
 
             foreach (var us in listUsers)
             {
-                var nodeU = document.CreateElement(nameof(User));           
+                var nodeU = document.CreateElement(nameof(User));
                 nodeU.SetAttribute(nameof(User.Login), us.Login);
                 nodeU.SetAttribute(nameof(User.Pass), us.Pass);
                 nodeU.SetAttribute(nameof(User.PravaDostupa_), (us.PravaDostupa_).ToString());
@@ -198,34 +217,61 @@ namespace MedOrganization.Services
             }
         }
 
-        public void Save(List<User> adm)
+        //public void Save(List<User> adm)
+        //{
+        //    string path = @"Users.xml";
+
+        //    var document = new XmlDocument();
+        //    var xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+        //    var root = document.DocumentElement;
+        //    document.InsertBefore(xmlDeclaration, root);
+        //    var userList = document.CreateElement(nameof(adm));
+
+        //    foreach (var us in listUsers)
+        //    {
+        //        var nodeU = document.CreateElement(nameof(User));
+        //        var nodeState = document.CreateElement(nameof(User.PravaDostupa_));
+        //        var log = document.CreateElement(nameof(User.Login));
+        //        var pass = document.CreateElement(nameof(User.Pass));
+
+        //        nodeState.InnerText = (us.PravaDostupa_).ToString();
+        //        log.InnerText = us.Login;
+        //        pass.InnerText = us.Pass;
+
+        //        userList.AppendChild(nodeU);
+        //        nodeU.AppendChild(nodeState);
+        //        nodeState.AppendChild(log);
+        //        log.AppendChild(pass);
+        //    }
+        //    document.AppendChild(userList);
+        //    document.Save(path);
+
+        //}
+
+        public void Menu()
         {
-            string path = @"Users.xml";
+            Generate();
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("            --------------MENU--------------");
+            Console.WriteLine("For register, press 1 | for enter, press 2 | for exit perss 0 ");
 
-            var document = new XmlDocument();
-            var xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
-            var root = document.DocumentElement;
-            document.InsertBefore(xmlDeclaration, root);
-            var userList = document.CreateElement(nameof(adm));
-
-            foreach (var us in listUsers)
+            int.TryParse(Console.ReadLine(), out int choice);
+            while (true)
             {
-                var nodeU = document.CreateElement(nameof(User));
-                var nodeState = document.CreateElement(nameof(User.PravaDostupa_));
-                var log = document.CreateElement(nameof(User.Login));
-                var pass = document.CreateElement(nameof(User.Pass));
-
-                nodeState.InnerText = (us.PravaDostupa_).ToString();
-                log.InnerText = us.Login;
-                pass.InnerText = us.Pass;
-
-                userList.AppendChild(nodeU);
-                nodeU.AppendChild(nodeState);
-                nodeState.AppendChild(log);
-                log.AppendChild(pass);
+            switch (choice)
+            {
+                    case 1: Registration(); break;
+                    case 2: LoginService(); break;
+                default:
+                    break;
             }
-            document.AppendChild(userList);
-            document.Save(path);
+
+            }
+        }
+
+        public void Menu2()
+        {
 
         }
     }

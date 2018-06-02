@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\MedOrgService.cs" />
-    <Compile Include="Services\Menu.cs" />
     <Compile Include="Services\PacientServise.cs" />
     <Compile Include="Module\MedOrganization.cs" />
     <Compile Include="Module\Pacient.cs" />

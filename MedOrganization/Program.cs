@@ -15,15 +15,15 @@ namespace MedOrganization
         static void Main(string[] args)
         {
             ////Есть пациенты
-            //PacientServise ps = new PacientServise();
+            PacientServise ps = new PacientServise();
 
             ////Есть мед организации
-            //MedOrgService ms = new MedOrgService();
+            MedOrgService ms = new MedOrgService();
 
 
-            //ServiceZakreplenie sz = new ServiceZakreplenie();
-            //string message = "";
-            //sz.Zakreplenie(ref ms, ref ps, out message);
+            ServiceZakreplenie sz = new ServiceZakreplenie();
+            string message = "";
+            sz.Zakreplenie(ref ms, ref ps, out message);
 
             //ms.Save();
             //ps.Save();
@@ -32,9 +32,10 @@ namespace MedOrganization
             Console.WriteLine();
 
             UserService us = new UserService();
-            Console.WriteLine("Registration");
-            us.Generate();
-           // us.Registration();
+            
+            //us.Generate();
+            // us.Registration();
+            //us.LoginService();
             Console.WriteLine();
             Console.WriteLine();
 

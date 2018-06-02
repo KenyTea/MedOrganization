@@ -36,7 +36,7 @@ namespace MedOrganization.Module
                               $"ID organizacii ={Id} \n");
             foreach (var pacient in PacientList)
             {
-                Console.WriteLine($"    Pacient ={pacient.Familiya} {pacient.Imya} {pacient.IIN}");
+                Console.WriteLine($"    Pacient ={pacient.Family} {pacient.Name} {pacient.IIN}");
             }
         }
 
