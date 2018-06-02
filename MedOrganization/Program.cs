@@ -33,7 +33,7 @@ namespace MedOrganization
 
             UserService us = new UserService();
             Console.WriteLine("Registration");
-           // us.Generate();
+            us.Generate();
            // us.Registration();
             Console.WriteLine();
             Console.WriteLine();
@@ -42,7 +42,7 @@ namespace MedOrganization
             // us.PrintList();
             //Console.WriteLine("WriteToFileWithLogAndPass");
             //us.WriteToFileWithLogAndPass();
-            us.Save();
+            //us.Save();
             //Console.WriteLine("ReadFromFileWithLogAndPass");
             //us.ReadFromFileWithLogAndPass();
            // us.Load();

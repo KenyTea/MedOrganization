@@ -40,6 +40,7 @@ namespace MedOrganization.Services
             use.Pass = "333";
             listUsers.Add(use);
             // PrintList();
+            Save();
         }
 
         public void Registration()
@@ -168,6 +169,7 @@ namespace MedOrganization.Services
                 nodeU.SetAttribute(nameof(User.Pass), us.Pass);
                 nodeU.SetAttribute(nameof(User.PravaDostupa_), (us.PravaDostupa_).ToString());
                 userList.AppendChild(nodeU);
+
                 //nodeU.AppendChild(nodeState);
                 //nodeState.AppendChild(log);
                 //log.AppendChild(pass);
@@ -187,34 +189,17 @@ namespace MedOrganization.Services
             }
             else
             {
-                var listUsers = new XmlDocument();
-                listUsers.Load(path);
+                var xmldoc = new XmlDocument();
+                xmldoc.Load(path);
                 // var userr = listUsers.DocumentElement;
 
 
-                foreach (XmlElement node in listUsers.DocumentElement.ChildNodes)
+                foreach (XmlElement node in xmldoc.DocumentElement)
                 {
                     var use = new User();
-                    foreach (XmlNode node2 in node.ChildNodes)
-                    {
-                           use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node2[nameof(User.PravaDostupa_)].InnerText);
-                        foreach (XmlNode node3 in node2.ChildNodes)
-                        {
-                            foreach (XmlNode node4 in node3.ChildNodes)
-                            {
-                                use.Login = node4[nameof(User.Login)].InnerText;
-                                foreach (XmlNode node5 in node4.ChildNodes)
-                                {
-                                    use.Pass = node5[nameof(User.Pass)].InnerText;
-                                }
-                            }
-                        }
-                    }
-                    //use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node[nameof(User.PravaDostupa_)].InnerText); 
-
-                    //use.Login = node[nameof(User.Login)].InnerText;
-
-
+                    use.Login = node.GetAttribute(nameof(User.Login));
+                    use.Pass = node.GetAttribute(nameof(User.Pass));
+                    use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node.GetAttribute(nameof(User.PravaDostupa_)));
 
                     tempList.Add(use);
                     PrintList(tempList);
