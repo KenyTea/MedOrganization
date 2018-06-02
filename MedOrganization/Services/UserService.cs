@@ -77,12 +77,12 @@ namespace MedOrganization.Services
                 {
                     foreach (var item in listUsers)
                     {
-                        sw.Write(item.PravaDostupa_);
-                        sw.Write(" ");
-                        sw.Write(item.Login);
-                        sw.Write(" ");
-                        sw.Write(item.Pass);
-                        sw.Write(" ");
+                        sw.WriteLine(item.PravaDostupa_.ToString());
+                       // sw.Write(" ");
+                        sw.WriteLine(item.Login);
+                        //sw.Write(" ");
+                        sw.WriteLine(item.Pass);
+                        //sw.Write(" ");
                         Console.WriteLine("Add to file");
                     }
                 }
@@ -97,10 +97,10 @@ namespace MedOrganization.Services
             {
                 using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default))
                 {
-                    texts = sr.ReadToEnd();
+                    texts = sr.ReadLine();
 
                     var m = texts.Split('\n');
-                    //user.PravaDostupa_ = (PravaDostupa)m[0]; !!!!!!!!!!!!!!!!!!!!!!!!
+                    user.PravaDostupa_ = m[0]; 
                     user.Login = m[1];
                     user.Pass = m[2];
                     tempList.Add(user);
