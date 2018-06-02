@@ -43,7 +43,8 @@ namespace MedOrganization
             //Console.WriteLine("WriteToFileWithLogAndPass");
             //us.WriteToFileWithLogAndPass();
             //Console.WriteLine("ReadFromFileWithLogAndPass");
-            us.ReadFromFileWithLogAndPass();
+            //us.ReadFromFileWithLogAndPass();
+            us.Load();
         }
     }
 }

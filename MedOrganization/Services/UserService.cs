@@ -13,7 +13,7 @@ namespace MedOrganization.Services
     {
         // User user = new User();
         List<User> listUsers = new List<User>();
-        //List<User> tempList = new List<User>();
+        List<User> tempList = new List<User>();
 
         string path = @"FileWithLogAndPass.txt";
 
@@ -138,16 +138,10 @@ namespace MedOrganization.Services
                     newUser.Login = m[1];
                     newUser.Pass = m[2];
                     Console.WriteLine("Read from file");
-                }               
+                }
             }
-                    tempList.Add(newUser);
+            tempList.Add(newUser);
             // PrintList(tempList);
-            foreach (var item in tempList)
-            {
-                Console.WriteLine(item.PravaDostupa_);
-                Console.WriteLine(item.Login);
-                Console.WriteLine(item.Pass);
-            }
         }
 
         public void Save()
@@ -179,6 +173,51 @@ namespace MedOrganization.Services
             document.AppendChild(userList);
             document.Save(path);
 
+        }
+
+        public void Load()
+        {
+            string path = @"Users.xml";
+
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("The file not found");
+            }
+            else
+            {
+                var listUsers = new XmlDocument();
+                listUsers.Load(path);
+                // var userr = listUsers.DocumentElement;
+
+
+                foreach (XmlElement node in listUsers.DocumentElement)
+                {
+                    var use = new User();
+                    foreach (XmlElement node2 in node.ChildNodes)
+                    {
+                        foreach (XmlText node3 in node2.ChildNodes)
+                        {
+                            use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node3[nameof(User.PravaDostupa_)].InnerText);
+                            foreach (XmlText node4 in node3.ChildNodes)
+                            {
+                                use.Login = node4[nameof(User.Login)].InnerText;
+                                foreach (XmlElement node5 in node4.ChildNodes)
+                                {
+                                    use.Pass = node5[nameof(User.Pass)].InnerText;
+                                }
+                            }
+                        }
+                    }
+                    //use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node[nameof(User.PravaDostupa_)].InnerText); 
+
+                    //use.Login = node[nameof(User.Login)].InnerText;
+
+
+
+                    tempList.Add(use);
+                    PrintList(tempList);
+                }
+            }
         }
 
         public void Save(List<User> adm)
