@@ -45,7 +45,7 @@ namespace MedOrganization
             //us.Save();
             //Console.WriteLine("ReadFromFileWithLogAndPass");
             //us.ReadFromFileWithLogAndPass();
-           // us.Load();
+            //us.Load();
         }
     }
 }

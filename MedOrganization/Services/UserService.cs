@@ -39,8 +39,9 @@ namespace MedOrganization.Services
             use.Login = "Max";
             use.Pass = "333";
             listUsers.Add(use);
-            // PrintList();
+            
             Save();
+            Load();
         }
 
         public void Registration()
@@ -50,6 +51,7 @@ namespace MedOrganization.Services
 
             Console.WriteLine("For registration Enter Your user name: ");
             string uName = Console.ReadLine();
+            
             newUser.PravaDostupa_ = PravaDostupa.User;
             newUser.Login = uName;
             Console.Clear();
@@ -157,22 +159,11 @@ namespace MedOrganization.Services
 
             foreach (var us in listUsers)
             {
-                var nodeU = document.CreateElement(nameof(User));
-                //var nodeState = document.CreateElement(nameof(User.PravaDostupa_));
-                //var log = document.CreateElement(nameof(User.Login));
-                //var pass = document.CreateElement(nameof(User.Pass));
-
-                //nodeState.InnerText = (us.PravaDostupa_).ToString();
-                //log.InnerText = us.Login;
-                //pass.InnerText = us.Pass;
+                var nodeU = document.CreateElement(nameof(User));           
                 nodeU.SetAttribute(nameof(User.Login), us.Login);
                 nodeU.SetAttribute(nameof(User.Pass), us.Pass);
                 nodeU.SetAttribute(nameof(User.PravaDostupa_), (us.PravaDostupa_).ToString());
                 userList.AppendChild(nodeU);
-
-                //nodeU.AppendChild(nodeState);
-                //nodeState.AppendChild(log);
-                //log.AppendChild(pass);
             }
             document.AppendChild(userList);
             document.Save(path);
