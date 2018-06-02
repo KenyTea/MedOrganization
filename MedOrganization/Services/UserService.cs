@@ -190,18 +190,18 @@ namespace MedOrganization.Services
                 // var userr = listUsers.DocumentElement;
 
 
-                foreach (XmlElement node in listUsers.DocumentElement)
+                foreach (XmlElement node in listUsers.DocumentElement.ChildNodes)
                 {
                     var use = new User();
-                    foreach (XmlElement node2 in node.ChildNodes)
+                    foreach (XmlNode node2 in node.ChildNodes)
                     {
-                        foreach (XmlText node3 in node2.ChildNodes)
+                           use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node2[nameof(User.PravaDostupa_)].InnerText);
+                        foreach (XmlNode node3 in node2.ChildNodes)
                         {
-                            use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node3[nameof(User.PravaDostupa_)].InnerText);
-                            foreach (XmlText node4 in node3.ChildNodes)
+                            foreach (XmlNode node4 in node3.ChildNodes)
                             {
                                 use.Login = node4[nameof(User.Login)].InnerText;
-                                foreach (XmlElement node5 in node4.ChildNodes)
+                                foreach (XmlNode node5 in node4.ChildNodes)
                                 {
                                     use.Pass = node5[nameof(User.Pass)].InnerText;
                                 }
