@@ -39,12 +39,13 @@ namespace MedOrganization
             Console.WriteLine();
 
             //Console.WriteLine("Print");
-           // us.PrintList();
+            // us.PrintList();
             //Console.WriteLine("WriteToFileWithLogAndPass");
             //us.WriteToFileWithLogAndPass();
+            us.Save();
             //Console.WriteLine("ReadFromFileWithLogAndPass");
             //us.ReadFromFileWithLogAndPass();
-            us.Load();
+           // us.Load();
         }
     }
 }
