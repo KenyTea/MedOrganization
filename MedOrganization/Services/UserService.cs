@@ -43,7 +43,7 @@ namespace MedOrganization.Services
             SaveUser();
             LoadUser();
         }
-
+        string uName = "";
         public void Registration()
         {
             Generate();
@@ -51,7 +51,7 @@ namespace MedOrganization.Services
             newUser.PravaDostupa_ = PravaDostupa.User;
 
             Console.WriteLine("For registration Enter Your user name: ");
-            string uName = Console.ReadLine();
+            uName = Console.ReadLine();
             //foreach (var item in listUsers)
             //{
             //    if (item.Login != uName)
@@ -98,11 +98,11 @@ namespace MedOrganization.Services
             return true;
         }
 
-        public bool SaarchPasswordForCheck(string n)
+        public bool SaarchPasswordForCheck(string n, string p)
         {
             foreach (var item in listUsers)
             {
-                if (item.Pass != n)
+                if (item.Login == n && item.Pass != p)
                 {
                     return false;
                 }
@@ -134,22 +134,23 @@ namespace MedOrganization.Services
         }
 
         #endregion
-
+        string log = "";
         public void LoginService()
         {
             Generate();
             Console.WriteLine();
             Console.WriteLine("Please enter Your login: ");
-            string log = Console.ReadLine();
-            foreach (var item in tempList)
+            log = Console.ReadLine();
+            foreach (var item in listUsers)
             {
                 if (!SaarchNameForCheck(log))
                 {
                     Console.WriteLine("Enter Your password ");
                     string pass = Console.ReadLine();
-                    if (SaarchPasswordForCheck(pass))
+                    if (SaarchPasswordForCheck(log, pass))
                     {
                         Console.WriteLine("Welcom " + log);
+                        break;
                     }
                     else Console.WriteLine("Password entered incorrectly");
                     //if (item.Pass == pass)
@@ -255,7 +256,6 @@ namespace MedOrganization.Services
                     use.Login = node.GetAttribute(nameof(User.Login));
                     use.Pass = node.GetAttribute(nameof(User.Pass));
                     use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node.GetAttribute(nameof(User.PravaDostupa_)));
-
                     tempList.Add(use);
                     //PrintList(tempList);
                 }
@@ -306,8 +306,12 @@ namespace MedOrganization.Services
             {
                 switch (choice)
                 {
-                    case 1: Console.Clear(); Registration(); Menu2(); break;
-                    case 2: Console.Clear(); LoginService(); Menu2(); break;
+                    case 1: Console.Clear();
+                        Registration();
+                        Menu2(); break;
+                    case 2: Console.Clear();
+                        LoginService();
+                        Menu2(); break;
                     case 0: return;
                 }
 
@@ -320,8 +324,7 @@ namespace MedOrganization.Services
             ServiceZakreplenie sz = new ServiceZakreplenie();
             foreach (var item in tempList)
             {
-
-                if (item.PravaDostupa_ == PravaDostupa.Admin)
+                if (log == "Root")
                 {
                     while (true)
                     {
@@ -335,7 +338,9 @@ namespace MedOrganization.Services
                         switch (choiceee)
                         {
                             case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
-                            case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
+                            //case 1: Console.Clear(); MedOrgService.Instance.Load(); break;
+                            //case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
+                            case 2: Console.Clear(); PacientServise.Instance.Load(); break;
                             case 3:
                                 Console.Clear();
                                 Console.WriteLine("For serch enter Name and address:");
@@ -344,11 +349,11 @@ namespace MedOrganization.Services
                                 MedOrgService.Instance.SearchOrg(n, a);
                                 break;
                             case 4: Console.Clear(); sz.Zakreplenie(out string mesage); break;
-                            case 0: return;
+                            case 0: break;
                         }
                     }
                 }
-                else if (item.PravaDostupa_ == PravaDostupa.User)
+                else 
                 {
                     Console.WriteLine("----------------MENU 2-----------------");
                     Console.WriteLine("For show all med organizations press 1");
@@ -367,7 +372,7 @@ namespace MedOrganization.Services
                             Console.Write("Enter address:  "); string a = Console.ReadLine();
                             MedOrgService.Instance.SearchOrg(n, a);
                             break;
-                        case 0: return;
+                        case 0: break;
                     }
                 }
 

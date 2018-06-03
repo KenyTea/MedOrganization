@@ -9,9 +9,7 @@ namespace MedOrganization.Module
     public class Pacient
     {
         public Pacient()
-        {
-
-        }
+        {}
         public Pacient(string familiya, string imya, string otchestvo, int iIN)
         {
             Family = familiya;
@@ -20,7 +18,6 @@ namespace MedOrganization.Module
             IIN = iIN;
         }
 
-        //1.	Пациент(Фамилия, Имя, Отчество, ИИН)
         public string Family { get; set; }
         public string Name { get; set; }
         public string MidleName { get; set; }
@@ -35,12 +32,7 @@ namespace MedOrganization.Module
 
         public void PacientInfo()
         {
-            //Console.WriteLine(
-            //      $@"Familiya = {Family}
-            //      Imya = {Imya}
-            //      Otchestvo = {Otchestvo}
-            //      IIN = {IIN}
-            //      Org = {MedOrganization?.NameOrgan}");
+            Console.WriteLine();
             Console.WriteLine("Family: " + Family);
             Console.WriteLine("Name: " + Name);
             Console.WriteLine("Midle name: " + MidleName);

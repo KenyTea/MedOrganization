@@ -45,7 +45,7 @@ namespace MedOrganization.Module
             Console.WriteLine("                   Select med organization");
             int selectOrgId = Int32.Parse(Console.ReadLine());
             //selectOrg = MedOrgServiceStat[selectOrgId];
-            selectOrg = MedOrgService.[selectOrgId];
+            selectOrg = MedOrgService.Instance[selectOrgId];
             Console.WriteLine("           --------------------------------------");
 
             #endregion

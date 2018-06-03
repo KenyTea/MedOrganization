@@ -13,14 +13,14 @@ namespace MedOrganization
     {
         static void Main(string[] args)
         {
+            PacientServise ps = new PacientServise();
+            MedOrgService ms = new MedOrgService();
             UserService us = new UserService();
             us.Menu();
             //us.Menu2();
             ////Есть пациенты
-            //PacientServise ps = new PacientServise();
 
             ////Есть мед организации
-            //MedOrgService ms = new MedOrgService();
 
 
            // ServiceZakreplenie sz = new ServiceZakreplenie();

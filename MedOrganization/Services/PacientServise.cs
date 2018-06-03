@@ -30,7 +30,8 @@ namespace MedOrganization.Module.Services
         {
             PacientGenerator(10); // !!!!!!!!!!!!!!!!!!!!!!
             Instance = this; // p
-            Load();
+            Save();
+           // Load();
         }
 
         public void Save()
@@ -103,6 +104,7 @@ namespace MedOrganization.Module.Services
                                     }
                                 }
                                 PacientList.Add(pacient);
+                                PokazVsehPacientov();
                             }
                         }
 
