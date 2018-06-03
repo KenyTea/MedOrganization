@@ -24,6 +24,7 @@ namespace MedOrganization.Module
 
         public MedOrgService()
         {
+            OrgGenerator(10);
             Instance = this;
             Load();
         }
@@ -127,6 +128,7 @@ namespace MedOrganization.Module
 
         public void SearchOrg(string nameOrgan, string adres)
         {
+            PokazVsehOrg();
             bool yes = false;
             foreach (MedOrganization item in MedOrgList)
             {
@@ -141,9 +143,9 @@ namespace MedOrganization.Module
             if (!yes)
                 Console.WriteLine("Takoi organizacii net=(");
         }
-        public void PokazVsehOrg(List<MedOrganization> mo)
+        public void PokazVsehOrg()
         {
-            foreach (MedOrganization item in mo)
+            foreach (MedOrganization item in MedOrgList)
             {
                 item.MedOrganizationInfo();
                 Console.WriteLine("____________________________");

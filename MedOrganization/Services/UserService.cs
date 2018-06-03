@@ -1,4 +1,5 @@
 ﻿using MedOrganization.Module;
+using MedOrganization.Module.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace MedOrganization.Services
         List<User> listUsers = new List<User>();
         List<User> tempList = new List<User>();
 
-        string path = @"FileWithLogAndPass.txt";
+        public string path = @"FileWithLogAndPass.txt";
 
         public void Generate()
         {
@@ -39,25 +40,29 @@ namespace MedOrganization.Services
             use.Pass = "333";
             listUsers.Add(use);
 
-            Save();
-            Load();
+            SaveUser();
+            LoadUser();
         }
 
         public void Registration()
-        {           
+        {
+            Generate();
             User newUser = new User();
             newUser.PravaDostupa_ = PravaDostupa.User;
 
             Console.WriteLine("For registration Enter Your user name: ");
             string uName = Console.ReadLine();
-            foreach (var item in tempList)
-            {
-                if (item.Login == uName)
-                {
-                    Console.WriteLine("Such name already exists");
-                }
-                else newUser.Login = uName;
-            }
+            //foreach (var item in listUsers)
+            //{
+            //    if (item.Login != uName)
+            //    {
+            //        newUser.Login = uName;
+            //    }
+            //    else  Console.WriteLine("Such name already exists");
+            //}
+           if(SaarchNameForCheck(uName))
+                newUser.Login = uName;
+           else Console.WriteLine("Such name already exists");
 
             Console.Clear();
             Console.WriteLine("Enter Your password: ");
@@ -69,11 +74,28 @@ namespace MedOrganization.Services
                 newUser.Pass = word2;
                 listUsers.Add(newUser);
                 WriteToFileWithLogAndPass();
-                Save();
-                PrintList(listUsers);
+                SaveUser();
+               // PrintList(listUsers);
             }
-            else Console.WriteLine("Error");
-            return;
+            else
+            {
+                Console.WriteLine("Error");
+                return;
+            }
+
+        }
+
+        public bool SaarchNameForCheck(string n)
+        {
+            foreach (var item in listUsers)
+            {
+                if (item.Login == n)
+                {
+                    return false;
+                }
+
+            }
+            return true;
         }
 
         #region print list
@@ -102,6 +124,7 @@ namespace MedOrganization.Services
 
         public void LoginService()
         {
+            Generate();
             Console.WriteLine();
             Console.WriteLine("Please enter Your login: ");
             string log = Console.ReadLine();
@@ -117,7 +140,11 @@ namespace MedOrganization.Services
                     }
                     else Console.WriteLine("Password entered incorrectly");
                 }
-                else Console.WriteLine("You made a mistake in the name or you are not registered");
+                else
+                {
+                    Console.WriteLine("You made a mistake in the name or you are not registered");
+                    break;
+                }
             }
 
         }
@@ -138,7 +165,7 @@ namespace MedOrganization.Services
                         sw.Write(";");
                         sw.Write(item.Pass);
                         sw.WriteLine(" ");
-                        Console.WriteLine("Add to file"); // проверка на выполнения
+                        //Console.WriteLine("Add to file"); // проверка на выполнения
                     }
                 }
             }
@@ -166,7 +193,7 @@ namespace MedOrganization.Services
             // PrintList(tempList);
         }
 
-        public void Save()
+        public void SaveUser()
         {
             string path = @"Users.xml";
 
@@ -189,7 +216,7 @@ namespace MedOrganization.Services
 
         }
 
-        public void Load()
+        public void LoadUser()
         {
             string path = @"Users.xml";
 
@@ -212,7 +239,7 @@ namespace MedOrganization.Services
                     use.PravaDostupa_ = (PravaDostupa)Enum.Parse(typeof(PravaDostupa), node.GetAttribute(nameof(User.PravaDostupa_)));
 
                     tempList.Add(use);
-                    PrintList(tempList);
+                    //PrintList(tempList);
                 }
             }
         }
@@ -259,20 +286,76 @@ namespace MedOrganization.Services
             int.TryParse(Console.ReadLine(), out int choice);
             while (true)
             {
-            switch (choice)
-            {
-                    case 1: Registration(); break;
-                    case 2: LoginService(); break;
-                default:
-                    break;
-            }
+                switch (choice)
+                {
+                    case 1: Console.Clear(); Registration(); Menu2(); break;
+                    case 2: Console.Clear(); LoginService(); Menu2(); break;
+                    case 0: return;
+                }
 
             }
         }
 
         public void Menu2()
         {
+                MedOrgService mos = new MedOrgService();
+                PacientServise ps = new PacientServise();
+                ServiceZakreplenie sz = new ServiceZakreplenie();
+            foreach (var item in tempList)
+            {
 
+                if (item.PravaDostupa_ == PravaDostupa.Admin)
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("----------------MENU 2-----------------");
+                        Console.WriteLine("For show all med organizations press 1");
+                        Console.WriteLine("   For show all patients press 2");
+                        Console.WriteLine("  For search med organizations press 3");
+                        Console.WriteLine("     For fix the patients press 4");
+                        Console.WriteLine("          For exit press 0");
+                        int.TryParse(Console.ReadLine(), out int choiceee);
+                        switch (choiceee)
+                        {
+                            case 1: Console.Clear(); mos.PokazVsehOrg(); break;
+                            case 2: Console.Clear(); ps.PokazVsehPacientov(); break;
+                            case 3:
+                                Console.Clear();
+                                Console.WriteLine("For serch enter Name and address:");
+                                Console.Write("Enter name:  "); string n = Console.ReadLine();
+                                Console.Write("Enter address:  "); string a = Console.ReadLine();
+                                mos.SearchOrg(n, a);
+                                break;
+                            case 4: Console.Clear(); sz.Zakreplenie(ref mos, ref ps, out string mesage); break;
+                            case 0: return;
+                        }
+                    }
+                }
+                else if (item.PravaDostupa_ == PravaDostupa.User)
+                {
+                    Console.WriteLine("----------------MENU 2-----------------");
+                    Console.WriteLine("For show all med organizations press 1");
+                    Console.WriteLine("   For show all patients press 2");
+                    Console.WriteLine(" For search med organizations press 3");
+                    Console.WriteLine("          For exit press 0");
+                    int.TryParse(Console.ReadLine(), out int choiceee);
+                    switch (choiceee)
+                    {
+                        case 1: Console.Clear(); mos.PokazVsehOrg(); break;
+                        case 2: Console.Clear(); ps.PokazVsehPacientov(); break;
+                        case 3:
+                            Console.Clear();
+                            Console.WriteLine("For serch enter Name and address:");
+                            Console.Write("Enter name:  "); string n = Console.ReadLine();
+                            Console.Write("Enter address:  "); string a = Console.ReadLine();
+                            mos.SearchOrg(n, a);
+                            break;
+                        case 0: return;
+                    }
+                }
+
+
+            }
         }
     }
 }

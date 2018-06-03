@@ -156,9 +156,9 @@ namespace MedOrganization.Module.Services
 
 
 
-        public void PokazVsehPacientov(List<Pacient> pac)
+        public void PokazVsehPacientov()
         {
-            foreach (Pacient item in pac)
+            foreach (Pacient item in PacientList)
             {
                 item.PacientInfo();
                 Console.WriteLine("____________________________");

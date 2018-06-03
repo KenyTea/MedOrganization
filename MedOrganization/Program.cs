@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MedOrganization.Module.Services;
-using MedOrganization.Module;
 using MedOrganization.Services;
 
 namespace MedOrganization
@@ -14,30 +13,26 @@ namespace MedOrganization
     {
         static void Main(string[] args)
         {
+            UserService us = new UserService();
+            //us.Menu();
+            us.Menu2();
             ////Есть пациенты
-            PacientServise ps = new PacientServise();
+            //PacientServise ps = new PacientServise();
 
             ////Есть мед организации
-            MedOrgService ms = new MedOrgService();
+            //MedOrgService ms = new MedOrgService();
 
 
-            ServiceZakreplenie sz = new ServiceZakreplenie();
-            string message = "";
-            sz.Zakreplenie(ref ms, ref ps, out message);
+           // ServiceZakreplenie sz = new ServiceZakreplenie();
+            //string message = "";
+            //sz.Zakreplenie(ref ms, ref ps, out string message);
 
             //ms.Save();
             //ps.Save();
 
-            Console.WriteLine();
-            Console.WriteLine();
-
-            UserService us = new UserService();
-            
             //us.Generate();
             // us.Registration();
             //us.LoginService();
-            Console.WriteLine();
-            Console.WriteLine();
 
             //Console.WriteLine("Print");
             // us.PrintList();
