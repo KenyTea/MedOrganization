@@ -42,7 +42,7 @@ namespace MedOrganization.Module
 
             Console.WriteLine("           --------------------------------------");
             MedOrganization selectOrg = new MedOrganization();
-            Console.WriteLine("                   Select med organization");
+            Console.WriteLine("               Select med organization, enter id");
             int selectOrgId = Int32.Parse(Console.ReadLine());
             //selectOrg = MedOrgServiceStat[selectOrgId];
             selectOrg = MedOrgService.Instance[selectOrgId];
@@ -60,6 +60,7 @@ namespace MedOrganization.Module
                 if (p.IIN == selectIin)
                 {
                     mesage = "This patient is already attached!";
+                    Console.WriteLine("This patient is already attached!");
                     return false;
                 }
             }
@@ -70,6 +71,8 @@ namespace MedOrganization.Module
                 .MedOrganization = selectOrg;
 
             mesage = "This patient is successfully attached!";
+            Console.WriteLine("This patient is successfully attached!");
+            //MedOrgService.Instance.PokazVsehOrg();
             return true;
           
         }

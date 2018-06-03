@@ -9,6 +9,7 @@ using MedOrganization.Services;
 
 namespace MedOrganization
 {
+    #region Вопросы
     /*
       1.	Назовите явное имя параметра, передаваемого в метод set свойства класса?
 
@@ -136,9 +137,8 @@ CLS ("Common Language Specification", общеязыковая специфик�
      11.	Что такое managed code?
 Управляемый код (managed code) - это код, работающий в среде CLR.
 Содержит метаданные, в которых находится информация для среды выполнения - о типах, членах и ссылках, используемых в коде.
-
-
          */
+    #endregion
 
     class Program
     {
@@ -147,6 +147,7 @@ CLS ("Common Language Specification", общеязыковая специфик�
             PacientServise ps = new PacientServise();
             MedOrgService ms = new MedOrgService();
             UserService us = new UserService();
+            ServiceZakreplenie sz = new ServiceZakreplenie();
             us.Menu();
             //us.Menu2();
             ////Есть пациенты
@@ -154,7 +155,6 @@ CLS ("Common Language Specification", общеязыковая специфик�
             ////Есть мед организации
 
 
-           // ServiceZakreplenie sz = new ServiceZakreplenie();
             //string message = "";
             //sz.Zakreplenie(ref ms, ref ps, out string message);
 

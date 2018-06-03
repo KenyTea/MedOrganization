@@ -306,16 +306,19 @@ namespace MedOrganization.Services
             {
                 switch (choice)
                 {
-                    case 1: Console.Clear();
+                    case 1:
+                        Console.Clear();
                         Registration();
                         Menu2(); break;
-                    case 2: Console.Clear();
+                    case 2:
+                        Console.Clear();
                         LoginService();
                         Menu2(); break;
-                    case 0: return;
+                    case 0: goto theEnd;
                 }
 
             }
+            theEnd:;
         }
 
         public void Menu2()
@@ -349,35 +352,42 @@ namespace MedOrganization.Services
                                 MedOrgService.Instance.SearchOrg(n, a);
                                 break;
                             case 4: Console.Clear(); sz.Zakreplenie(out string mesage); break;
-                            case 0: break;
+                            case 0: goto theEnd2;
                         }
-                    }
-                }
-                else 
-                {
-                    Console.WriteLine("----------------MENU 2-----------------");
-                    Console.WriteLine("For show all med organizations press 1");
-                    Console.WriteLine("   For show all patients press 2");
-                    Console.WriteLine(" For search med organizations press 3");
-                    Console.WriteLine("          For exit press 0");
-                    int.TryParse(Console.ReadLine(), out int choiceee);
-                    switch (choiceee)
-                    {
-                        case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
-                        case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
-                        case 3:
-                            Console.Clear();
-                            Console.WriteLine("For serch enter Name and address:");
-                            Console.Write("Enter name:  "); string n = Console.ReadLine();
-                            Console.Write("Enter address:  "); string a = Console.ReadLine();
-                            MedOrgService.Instance.SearchOrg(n, a);
-                            break;
-                        case 0: break;
-                    }
-                }
+                        
 
+                    }
+                }
+                else
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("----------------MENU 2-----------------");
+                        Console.WriteLine("For show all med organizations press 1");
+                        Console.WriteLine("   For show all patients press 2");
+                        Console.WriteLine(" For search med organizations press 3");
+                        Console.WriteLine("          For exit press 0");
+                        int.TryParse(Console.ReadLine(), out int choiceee);
+                        switch (choiceee)
+                        {
+                            case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
+                            case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
+                            case 3:
+                                Console.Clear();
+                                Console.WriteLine("For serch enter Name and address:");
+                                Console.Write("Enter name:  "); string n = Console.ReadLine();
+                                Console.Write("Enter address:  "); string a = Console.ReadLine();
+                                MedOrgService.Instance.SearchOrg(n, a);
+                                break;
+                            case 0: goto theEnd2 ;
+                        }
+
+
+                    }
+                }
 
             }
+            theEnd2:;
         }
     }
 }
