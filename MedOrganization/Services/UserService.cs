@@ -60,9 +60,9 @@ namespace MedOrganization.Services
             //    }
             //    else  Console.WriteLine("Such name already exists");
             //}
-           if(SaarchNameForCheck(uName))
+            if (SaarchNameForCheck(uName))
                 newUser.Login = uName;
-           else Console.WriteLine("Such name already exists");
+            else Console.WriteLine("Such name already exists");
 
             Console.Clear();
             Console.WriteLine("Enter Your password: ");
@@ -75,7 +75,7 @@ namespace MedOrganization.Services
                 listUsers.Add(newUser);
                 WriteToFileWithLogAndPass();
                 SaveUser();
-               // PrintList(listUsers);
+                // PrintList(listUsers);
             }
             else
             {
@@ -90,6 +90,19 @@ namespace MedOrganization.Services
             foreach (var item in listUsers)
             {
                 if (item.Login == n)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+        public bool SaarchPasswordForCheck(string n)
+        {
+            foreach (var item in listUsers)
+            {
+                if (item.Pass != n)
                 {
                     return false;
                 }
@@ -130,15 +143,20 @@ namespace MedOrganization.Services
             string log = Console.ReadLine();
             foreach (var item in tempList)
             {
-                if (item.Login == log)
+                if (!SaarchNameForCheck(log))
                 {
                     Console.WriteLine("Enter Your password ");
                     string pass = Console.ReadLine();
-                    if (item.Pass == pass)
+                    if (SaarchPasswordForCheck(pass))
                     {
                         Console.WriteLine("Welcom " + log);
                     }
                     else Console.WriteLine("Password entered incorrectly");
+                    //if (item.Pass == pass)
+                    //{
+                    //    Console.WriteLine("Welcom " + log);
+                    //}
+                    //else Console.WriteLine("Password entered incorrectly");
                 }
                 else
                 {
@@ -298,9 +316,8 @@ namespace MedOrganization.Services
 
         public void Menu2()
         {
-                MedOrgService mos = new MedOrgService();
-                PacientServise ps = new PacientServise();
-                ServiceZakreplenie sz = new ServiceZakreplenie();
+            Console.Clear();
+            ServiceZakreplenie sz = new ServiceZakreplenie();
             foreach (var item in tempList)
             {
 
@@ -317,16 +334,16 @@ namespace MedOrganization.Services
                         int.TryParse(Console.ReadLine(), out int choiceee);
                         switch (choiceee)
                         {
-                            case 1: Console.Clear(); mos.PokazVsehOrg(); break;
-                            case 2: Console.Clear(); ps.PokazVsehPacientov(); break;
+                            case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
+                            case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
                             case 3:
                                 Console.Clear();
                                 Console.WriteLine("For serch enter Name and address:");
                                 Console.Write("Enter name:  "); string n = Console.ReadLine();
                                 Console.Write("Enter address:  "); string a = Console.ReadLine();
-                                mos.SearchOrg(n, a);
+                                MedOrgService.Instance.SearchOrg(n, a);
                                 break;
-                            case 4: Console.Clear(); sz.Zakreplenie(ref mos, ref ps, out string mesage); break;
+                            case 4: Console.Clear(); sz.Zakreplenie(out string mesage); break;
                             case 0: return;
                         }
                     }
@@ -341,14 +358,14 @@ namespace MedOrganization.Services
                     int.TryParse(Console.ReadLine(), out int choiceee);
                     switch (choiceee)
                     {
-                        case 1: Console.Clear(); mos.PokazVsehOrg(); break;
-                        case 2: Console.Clear(); ps.PokazVsehPacientov(); break;
+                        case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
+                        case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
                         case 3:
                             Console.Clear();
                             Console.WriteLine("For serch enter Name and address:");
                             Console.Write("Enter name:  "); string n = Console.ReadLine();
                             Console.Write("Enter address:  "); string a = Console.ReadLine();
-                            mos.SearchOrg(n, a);
+                            MedOrgService.Instance.SearchOrg(n, a);
                             break;
                         case 0: return;
                     }

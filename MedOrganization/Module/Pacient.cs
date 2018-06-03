@@ -25,7 +25,8 @@ namespace MedOrganization.Module
         public string Name { get; set; }
         public string MidleName { get; set; }
         public int IIN { get; set; }
-        public MedOrganization MedOrganization
+
+        public MedOrganization MedOrganization //m
         {
             get { return MedOrganizationId == null ? null : MedOrgService.Instance[MedOrganizationId.Value]; }
             set { MedOrganizationId = value?.Id; }

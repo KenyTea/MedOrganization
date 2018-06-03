@@ -16,16 +16,16 @@ namespace MedOrganization.Module
 
     public class MedOrgService
     {
-        Random r = new Random();
+        public static MedOrgService Instance { get; private set; } // m
 
         public List<MedOrganization> MedOrgList = new List<MedOrganization>();
 
-        public static MedOrgService Instance { get; private set; }
+        Random r = new Random();
 
         public MedOrgService()
         {
             OrgGenerator(10);
-            Instance = this;
+            Instance = this; // m
             Load();
         }
 

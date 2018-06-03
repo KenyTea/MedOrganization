@@ -21,13 +21,15 @@ namespace MedOrganization.Module.Services
 
     public class PacientServise
     {
-        public static PacientServise Instance { get; internal set; }
-        private static readonly string fileName = "Pacient.xml";
+        public static PacientServise Instance { get; internal set; } // p
         public List<Pacient> PacientList = new List<Pacient>();
+
+        private static readonly string fileName = "Pacient.xml";
+
         public PacientServise()
         {
             PacientGenerator(10); // !!!!!!!!!!!!!!!!!!!!!!
-            Instance = this;
+            Instance = this; // p
             Load();
         }
 

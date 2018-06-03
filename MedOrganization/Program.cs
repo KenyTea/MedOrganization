@@ -14,8 +14,8 @@ namespace MedOrganization
         static void Main(string[] args)
         {
             UserService us = new UserService();
-            //us.Menu();
-            us.Menu2();
+            us.Menu();
+            //us.Menu2();
             ////Есть пациенты
             //PacientServise ps = new PacientServise();
 
