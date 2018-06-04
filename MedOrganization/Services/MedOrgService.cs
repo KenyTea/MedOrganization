@@ -44,7 +44,7 @@ namespace MedOrganization.Module
 
         public void Save()
         {
-            string pathMed = @"C:\Users\AVassilyev\Source\Repos\MedOrganization\MedOrganization\bin\Debug\MedOrganithations.xml";
+            string pathMed = @"MedOrganithations.xml";
 
             var document = new XmlDocument();
             var xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
