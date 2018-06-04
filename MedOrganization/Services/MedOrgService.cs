@@ -26,6 +26,7 @@ namespace MedOrganization.Module
         {
             OrgGenerator(10);
             Instance = this; // m
+            Save();
             Load();
         }
 
