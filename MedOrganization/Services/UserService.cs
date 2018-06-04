@@ -73,7 +73,7 @@ namespace MedOrganization.Services
             {
                 newUser.Pass = word2;
                 listUsers.Add(newUser);
-                WriteToFileWithLogAndPass();
+                //WriteToFileWithLogAndPass();
                 SaveUser();
                 // PrintList(listUsers);
             }
