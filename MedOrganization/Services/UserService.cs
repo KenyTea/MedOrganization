@@ -297,14 +297,15 @@ namespace MedOrganization.Services
 
         public void Menu()
         {
+            bool aa = true;
             Generate();
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("            --------------MENU--------------");
             Console.WriteLine("For register, press 1 | for enter, press 2 | for exit perss 0 ");
-
-            int.TryParse(Console.ReadLine(), out int choice);
-            while (true)
+            int choice;
+            int.TryParse(Console.ReadLine(), out choice);
+            while (aa)
             {
                 switch (choice)
                 {
@@ -316,22 +317,25 @@ namespace MedOrganization.Services
                         Console.Clear();
                         LoginService();
                         Menu2(); break;
-                    case 0: goto theEnd;
+                    case 0: aa = false; break; // goto theEnd;
                 }
 
             }
-            theEnd:;
+           // theEnd:;
         }
 
         public void Menu2()
         {
+            string mesage = "";
+            int choiceee;
+            bool ab = true;
             Console.Clear();
             ServiceZakreplenie sz = new ServiceZakreplenie();
             foreach (var item in tempList)
             {
                 if (log == "Root")
                 {
-                    while (true)
+                    while (ab)
                     {
                         Console.WriteLine("----------------MENU 2-----------------");
                         Console.WriteLine("For show all med organizations press 1");
@@ -339,7 +343,7 @@ namespace MedOrganization.Services
                         Console.WriteLine("  For search med organizations press 3");
                         Console.WriteLine("     For fix the patients press 4");
                         Console.WriteLine("          For exit press 0");
-                        int.TryParse(Console.ReadLine(), out int choiceee);
+                        int.TryParse(Console.ReadLine(), out  choiceee);
                         switch (choiceee)
                         {
                             case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
@@ -353,8 +357,8 @@ namespace MedOrganization.Services
                                 Console.Write("Enter address:  "); string a = Console.ReadLine();
                                 MedOrgService.Instance.SearchOrg(n, a);
                                 break;
-                            case 4: Console.Clear(); sz.Zakreplenie(out string mesage); break;
-                            case 0: goto theEnd2;
+                            case 4: Console.Clear(); sz.Zakreplenie(out mesage); break;
+                            case 0: ab = false; break; //goto theEnd2;
                         }
                         
 
@@ -369,7 +373,7 @@ namespace MedOrganization.Services
                         Console.WriteLine("   For show all patients press 2");
                         Console.WriteLine(" For search med organizations press 3");
                         Console.WriteLine("          For exit press 0");
-                        int.TryParse(Console.ReadLine(), out int choiceee);
+                        int.TryParse(Console.ReadLine(), out choiceee);
                         switch (choiceee)
                         {
                             case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
