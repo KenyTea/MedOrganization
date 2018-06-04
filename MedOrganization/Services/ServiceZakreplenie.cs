@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace MedOrganization.Module
 {
@@ -11,7 +12,8 @@ namespace MedOrganization.Module
     {
         //public MedOrgService MedOrgServiceStat { get; set; }
         //public PacientServise PacientServiseStat { get; set; }
-
+        List<Pacient> pricrepPacient = new List<Pacient>();
+        List<MedOrganization> pricrepMedOrgan = new List<MedOrganization>();
 
         public bool Zakreplenie(/*ref MedOrgService ms, ref PacientServise ps,*/ out string mesage)
         {
@@ -77,6 +79,31 @@ namespace MedOrganization.Module
           
         }
 
+        public void SaveZakreplenir()
+        {
+            ZapropsyNaZakreplenie zpz = new ZapropsyNaZakreplenie();
+
+            string path = @"Zpz.xml";
+
+            var document = new XmlDocument();
+            var xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+            var root = document.DocumentElement;
+            document.InsertBefore(xmlDeclaration, root);
+            var userList = document.CreateElement(nameof(PacientServise.Instance.PacientList));
+
+            foreach (var us in PacientServise.Instance.PacientList)
+            {
+                var nodeU = document.CreateElement(nameof(User));
+                nodeU.SetAttribute(nameof(User.Login), us.Login);
+                nodeU.SetAttribute(nameof(User.Pass), us.Pass);
+                nodeU.SetAttribute(nameof(User.PravaDostupa_), (us.PravaDostupa_).ToString());
+                userList.AppendChild(nodeU);
+            }
+            document.AppendChild(userList);
+            document.Save(path);
+        }
+
+        #region
         //public bool Zakreplenie(ref MedOrgService ms, ref PacientServise ps, out string mesage)
         //{
         //    #region Select Pation
@@ -154,6 +181,7 @@ namespace MedOrganization.Module
         //    //mesage = "Данный пациент прикреплен успешно!";
         //    //return true;
         //}
+        #endregion
     }
 }
 

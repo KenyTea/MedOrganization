@@ -262,6 +262,7 @@ namespace MedOrganization.Services
             }
         }
 
+        #region
         //public void Save(List<User> adm)
         //{
         //    string path = @"Users.xml";
@@ -292,6 +293,7 @@ namespace MedOrganization.Services
         //    document.Save(path);
 
         //}
+        #endregion
 
         public void Menu()
         {
