@@ -385,7 +385,8 @@ namespace MedOrganization.Services
                                 Console.Write("Enter address:  "); string a = Console.ReadLine();
                                 MedOrgService.Instance.SearchOrg(n, a);
                                 break;
-                            case 0: goto theEnd2 ;
+                            case 0:
+                                ab = false; break; //goto theEnd2 ;
                         }
 
 
@@ -393,7 +394,7 @@ namespace MedOrganization.Services
                 }
 
             }
-            theEnd2:;
+           // theEnd2:;
         }
     }
 }
