@@ -346,19 +346,23 @@ namespace MedOrganization.Services
                         int.TryParse(Console.ReadLine(), out  choiceee);
                         switch (choiceee)
                         {
-                            case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
+                            case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); MedOrgService.Instance.Save(); PacientServise.Instance.Save(); break;
                             //case 1: Console.Clear(); MedOrgService.Instance.Load(); break;
                             //case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
-                            case 2: Console.Clear(); PacientServise.Instance.Load(); break;
+                            case 2: Console.Clear(); PacientServise.Instance.Load(); MedOrgService.Instance.Save(); PacientServise.Instance.Save(); break;
                             case 3:
                                 Console.Clear();
                                 Console.WriteLine("For serch enter Name and address:");
                                 Console.Write("Enter name:  "); string n = Console.ReadLine();
                                 Console.Write("Enter address:  "); string a = Console.ReadLine();
                                 MedOrgService.Instance.SearchOrg(n, a);
+                                MedOrgService.Instance.Save(); PacientServise.Instance.Save();
                                 break;
-                            case 4: Console.Clear(); sz.Zakreplenie(out mesage); break;
-                            case 0: ab = false; break; //goto theEnd2;
+                            case 4: Console.Clear(); sz.Zakreplenie(out mesage);
+                                    MedOrgService.Instance.Save(); PacientServise.Instance.Save(); break;
+                            case 0:
+                                MedOrgService.Instance.Save(); PacientServise.Instance.Save();
+                                ab = false; break; //goto theEnd2;
                         }
                         
 
@@ -376,16 +380,18 @@ namespace MedOrganization.Services
                         int.TryParse(Console.ReadLine(), out choiceee);
                         switch (choiceee)
                         {
-                            case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); break;
-                            case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); break;
+                            case 1: Console.Clear(); MedOrgService.Instance.PokazVsehOrg(); MedOrgService.Instance.Save(); PacientServise.Instance.Save(); break;
+                            case 2: Console.Clear(); PacientServise.Instance.PokazVsehPacientov(); MedOrgService.Instance.Save(); PacientServise.Instance.Save(); break;
                             case 3:
                                 Console.Clear();
                                 Console.WriteLine("For serch enter Name and address:");
                                 Console.Write("Enter name:  "); string n = Console.ReadLine();
                                 Console.Write("Enter address:  "); string a = Console.ReadLine();
                                 MedOrgService.Instance.SearchOrg(n, a);
+                                MedOrgService.Instance.Save(); PacientServise.Instance.Save();
                                 break;
                             case 0:
+                                MedOrgService.Instance.Save(); PacientServise.Instance.Save();
                                 ab = false; break; //goto theEnd2 ;
                         }
 
